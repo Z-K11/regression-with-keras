@@ -16,3 +16,6 @@ target = concrete_data['Strength']
 '''selects the 'Strength' column and returns a pandas series  which is a 1d array'''
 print(target.head())
 print(predictors.head())
+predictors_norm = ((predictors-predictors.mean())/predictors.std())
+print(predictors_norm.head())
+'''normalizing the data '''
