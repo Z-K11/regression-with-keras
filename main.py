@@ -19,3 +19,24 @@ print(predictors.head())
 predictors_norm = ((predictors-predictors.mean())/predictors.std())
 print(predictors_norm.head())
 '''normalizing the data '''
+number_of_col=predictors_norm.shape[1]
+from keras.models import Sequential
+from keras.layers import Dense 
+from keras.layers import Input
+
+def regression_model():
+    model = Sequential()
+    model.add(Input(shape=(number_of_col,)))
+    '''number_of_col, tells the shape that a 1d array is being passed'''
+    model.add(Dense(50,activation='relu'))
+    model.add(Dense(50,activation='relu'))
+    model.add(Dense(1))
+    #compiling model 
+    model.compile(optimizer='adam',loss='mean_squared_error')
+    return model
+model = regression_model()
+model.fit(predictors_norm,target,validation_split=0.3,epochs=100,verbose=2)
+'''fit method fits the model with the training data first two parameters are our input data validation split 0.3 means that 30 percent
+of the data will be reserved for testing and epochs means that we will have 100 iterations verbose means how much info is printed during 
+training 0 means no output 1 means progress bar 2 shows one line per epoch with the training and validation loss/accuracy,
+ which can be helpful for tracking the model's performance.'''
